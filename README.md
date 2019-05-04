@@ -4,19 +4,10 @@ This is a simple demonstration of a blog-type application written using the Lara
 
 # Installation
 
-### Clone from Github
+Install Laravel framework:    `composer install`
 
-Clone repository:
-    git clone https://github.com/elblayko/ExampleLaravelApplication.git
+Compile sass assets:    `npm install`
 
-Install Laravel framework
-    composer install
+Configure the Laravel environment:    `cp .env.example .env`
 
-Compile sass assets
-    npm install
-
-Configure the Laravel environment
-    cp .env.example .env
-
-Configure the application key
-    php artisan key:generate
+Configure the application key:    `php artisan key:generate`
