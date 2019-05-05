@@ -20,8 +20,3 @@ Route::get('/', function () {
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::resource('/blog', 'BlogPostsController');
-
-/*
-Route::get('/blog', 'BlogPostsController@index');
-Route::get('/blog/view/{id}', 'BlogPostsController@show');
-*/
