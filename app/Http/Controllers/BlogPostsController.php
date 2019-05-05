@@ -66,7 +66,8 @@ class BlogPostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = BlogPost::find($id);
+        return view('blog.editPost')->with('post', $post);
     }
 
     /**
@@ -78,7 +79,13 @@ class BlogPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $post = BlogPost::find($id);
+        $post->title = $input['postTitle'];
+        $post->body = $input['postBody'];
+        $post->save();
+
+        return view('blog.viewPost')->with('post', $post);
     }
 
     /**
@@ -89,6 +96,10 @@ class BlogPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = BlogPost::find($id);
+        $post->delete();
+
+        $posts = BlogPost::orderBy('id', 'DESC')->paginate(5);
+        return view('blog.allPostsWithPagination')->with('posts', $posts);
     }
 }
