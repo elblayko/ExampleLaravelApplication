@@ -6,7 +6,7 @@ This is a simple demonstration of a blog-type application written using the Lara
 
 Install Laravel framework:    `composer install`
 
-Compile sass assets:    `npm install`
+Install node dependancies:    `npm install`
 
 Configure the Laravel environment:    `cp .env.example .env`
 
