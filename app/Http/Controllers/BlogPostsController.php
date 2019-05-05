@@ -37,11 +37,17 @@ class BlogPostsController extends Controller
      */
     public function store(Request $request)
     {
-        $blogPost = new BlogPost();
-        $blogPost->author_id = 1;
-        $blogPost->title = $request->postTitle;
-        $blogPost->body = $request->postBody;
-        $blogPost->save();
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $input = $request->all();
+        BlogPost::create([
+            'author_id' => 1,
+            'title'     => $input['title'],
+            'body'      => $input['body']
+        ]);
 
         return redirect('/blog');
     }
@@ -81,9 +87,11 @@ class BlogPostsController extends Controller
     {
         $input = $request->all();
         $post = BlogPost::find($id);
-        $post->title = $input['postTitle'];
-        $post->body = $input['postBody'];
-        $post->save();
+        $post->update([
+            'author_id' => 1,
+            'title'     => $input['title'],
+            'body'      => $input['body']
+        ]);
 
         return view('blog.viewPost')->with('post', $post);
     }

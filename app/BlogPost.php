@@ -10,7 +10,5 @@ class BlogPost extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
 
-    protected $author_id;
-    protected $title;
-    protected $body;
+    protected $fillable = ['author_id', 'title', 'body'];
 }

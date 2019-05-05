@@ -11,11 +11,11 @@
       @csrf
       <div class="form-group">
         <label for="inputPostTitle">Title</label>
-        <input name="postTitle" type="text" class="form-control" id="inputPostTitle" placeholder="Enter topic title...">
+        <input name="title" type="text" class="form-control" id="inputPostTitle" placeholder="Enter topic title...">
       </div>
       <div class="form-group">
         <label for="inputPostBody">Post Body</label>
-        <textarea name="postBody" class="form-control" id="inputPostBody" rows="5"></textarea>
+        <textarea name="body" class="form-control" id="inputPostBody" rows="5"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
