@@ -6,21 +6,26 @@
 
 <div class="card clearfix">
   <div class="card-header">
-      <h3 class="d-inline-block">My Blog Posts</h3>
-      <a class="btn btn-primary float-right" href="/blog/create">New Post</a>
+    <h3 class="d-inline-block">My Blog Posts</h3>
+    <a class="btn btn-primary float-right" href="/blog/create">New Post</a>
   </div>
 
-  <div class="card-block m-3">
-    @if ( count($posts) > 0 )
-    @foreach ( $posts as $post )
-    <div class="card">
+  @if ( count($posts) > 0 )
+  @foreach ( $posts as $post )
+
+  <div class="card-block">
+    <div class="card m-3">
       <div class="card-header">
-        Created at {{ $post->created_at }}
+        <h5 class="card-title m-0"><a href="/blog/{{$post->id}}">{{$post->title}}</a></h5>
       </div>
       <div class="card-body mt-2">
-        <h5 class="card-title">{{$post->title}} </h5>
         <p class="card-text">{{ substr($post->body, 0, 300) }}</p>
-      <a href="/blog/{{$post->id}}" class="btn btn-primary">Read more...</a>
+        <hr />
+        @if ( $post->created_at == $post->updated_at )
+        Created at at {{ $post->created_at }}
+        @else
+        Last updated: {{ $post->updated_at }}
+        @endif
       </div>
     </div>
     @endforeach
@@ -31,7 +36,7 @@
         <h5 class="card-title">There are no posts.</h5>
       </div>
     </div>
-    @endif
   </div>
+  @endif
 </div>
 @endsection

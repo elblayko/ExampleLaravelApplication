@@ -3,15 +3,23 @@
 @section('title', 'View Post')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12 text-center">
-        <h1>My Blog Posts</h1>
-    </div>
-</div>
 
-<div class="row">
-    Post ID: {{ $post->id }}<br />
-    Author ID: {{ $post->author_id }}<br />
-    Title: {{ $post->title }}
+
+<div class="card">
+    <div class="card">
+        <div class="card-header align-bottom">
+            <h3 class="d-inline-block">{{ $post->title }}</h3>
+            <a class="btn btn-danger float-right" href="/blog/create">Delete Post</a>
+            <a class="btn btn-primary float-right" href="/blog/1/edit">Edit Post</a>
+        </div>
+        <div class="card-body mt-2">
+            <p class="card-text">{{ $post->body }}</p>
+            <hr />
+            Created at at {{ $post->created_at }}
+            @if ( $post->created_at != $post->updated_at )
+            last updated: {{ $post->updated_at }}
+            @endif
+        </div>
+    </div>
 </div>
 @endsection
