@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="card">
-    <h3 class="card-header">Create a post</h3>
+    <h3 class="card-header">Editing '{{ $post->title }}'</h3>
     <div class="card-block  card-padded">
       <form method="POST" action="/blog/{{$post->id}}" }}>
         @method('PUT')
