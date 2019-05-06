@@ -1,12 +1,16 @@
 @extends('app')
-
 @section('title', 'All Posts')
 
 @section('content')
-
 <div class="card clearfix">
   <div class="card-header">
-    <h3 class="d-inline-block">My Blog Posts</h3>
+    <h3 class="d-inline-block">
+      @if ( $headerType == 'search' )
+        {{ count($posts) }} post matching '{{ $query }}'      
+      @elseif ( $headerType == 'viewAll')
+        All Posts
+      @endif
+    </h3>
     <a class="btn btn-primary float-right" href="/blog/create">New Post</a>
   </div>
 

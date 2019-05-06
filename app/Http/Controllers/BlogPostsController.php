@@ -16,7 +16,10 @@ class BlogPostsController extends Controller
     public function index()
     {
         $posts = BlogPost::orderBy('id', 'DESC')->paginate(5);
-        return view('blog.allPostsWithPagination')->with('posts', $posts);
+        return view('blog.allPostsWithPagination')->with([
+            'posts' => $posts,
+            'headerType' => 'viewAll'
+        ]);
     }
 
     /**
@@ -43,13 +46,13 @@ class BlogPostsController extends Controller
         ]);
 
         $input = $request->all();
-        BlogPost::create([
+        $id = BlogPost::create([
             'author_id' => 1,
             'title'     => $input['title'],
             'body'      => $input['body']
-        ]);
+        ])->id;
 
-        return redirect('/blog');
+        return redirect('/blog/' . $id);
     }
 
     /**
@@ -60,7 +63,7 @@ class BlogPostsController extends Controller
      */
     public function show($id)
     {
-        $post = BlogPost::find($id);
+        $post = BlogPost::findOrFail($id);
         return view('blog.viewPost')->with('post', $post);
     }
 
@@ -72,7 +75,7 @@ class BlogPostsController extends Controller
      */
     public function edit($id)
     {
-        $post = BlogPost::find($id);
+        $post = BlogPost::findOrFail($id);
         return view('blog.editPost')->with('post', $post);
     }
 
@@ -85,12 +88,16 @@ class BlogPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $post = BlogPost::find($id);
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $post = BlogPost::findOrFail($id);
         $post->update([
             'author_id' => 1,
-            'title'     => $input['title'],
-            'body'      => $input['body']
+            'title'     => $request->input('title'),
+            'body'      => $request->input('body')
         ]);
 
         return view('blog.viewPost')->with('post', $post);
@@ -104,10 +111,26 @@ class BlogPostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = BlogPost::find($id);
-        $post->delete();
-
+        BlogPost::findOrFail($id)->delete();
         $posts = BlogPost::orderBy('id', 'DESC')->paginate(5);
-        return view('blog.allPostsWithPagination')->with('posts', $posts);
+        return redirect('/blog');
+    }
+
+    /**
+     * Display a listing of the resource matching search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $posts = BlogPost::where('body', 'LIKE', "%{$query}%")->paginate(5);
+        
+        return view('blog.allPostsWithPagination')->with([
+            'posts' => $posts, 
+            'headerType' => 'search',
+            'query' => $query
+        ]);
     }
 }
