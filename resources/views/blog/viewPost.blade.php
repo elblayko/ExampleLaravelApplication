@@ -17,9 +17,9 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="d-inline-block">{{ $post->title }}</h3>
+        <h3 class="m-0">{{ $post->title }}</h3>
     </div>
-    <div class="card-body mt-2">
+    <div class="card-body">
         <p class="card-text">{{ $post->body }}</p>
         <hr />
         Created at at {{ $post->created_at }}

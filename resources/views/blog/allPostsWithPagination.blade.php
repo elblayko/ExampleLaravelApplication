@@ -4,7 +4,7 @@
 @section('content')
 <div class="card clearfix">
   <div class="card-header">
-    <h3 class="d-inline-block">
+    <h3 class="d-inline-block m-0">
       @if ( $headerType == 'search' )
         {{ count($posts) }} post matching '{{ $query }}'      
       @elseif ( $headerType == 'viewAll')
@@ -22,7 +22,7 @@
       <div class="card-header">
         <h5 class="card-title m-0"><a href="/blog/{{$post->id}}">{{$post->title}}</a></h5>
       </div>
-      <div class="card-body mt-2">
+      <div class="card-body">
         <p class="card-text">{{ substr($post->body, 0, 300) }}</p>
         <hr />
         @if ( $post->created_at == $post->updated_at )
