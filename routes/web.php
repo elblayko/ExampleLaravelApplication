@@ -21,3 +21,7 @@ Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/blog/search', 'BlogPostsController@search');
 Route::resource('/blog', 'BlogPostsController');
+
+Auth::routes();
+
+Route::get('/home', 'DashboardController@index')->name('dashboard');
