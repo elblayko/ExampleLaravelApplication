@@ -9,11 +9,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="d-inline-block m-0">
-            @if ( $headerType == 'search' )
-            Search Results &dash; {{ count($posts) }} posts matching '{{ $query }}'
-            @elseif ( $headerType == 'viewAll')
             All Posts
-            @endif
           </h3>
           <a class="btn btn-primary float-right" href="/blog/create">New Post</a>
         </div>
@@ -28,8 +24,12 @@
             <div class="card-body">
               <p class="card-text">{{ substr($post->body, 0, 300) }}</p>
               <hr />
+              <a href="/blog/author/posts/{{$post->author_id}}">
+                
+                Author: {{ $post->author['name'] }}
+              </a>
               @if ( $post->created_at == $post->updated_at )
-              Created at at: {{ $post->created_at }}
+              Created at: {{ $post->created_at }}
               @else
               Last updated: {{ $post->updated_at }}
               @endif

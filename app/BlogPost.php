@@ -10,5 +10,14 @@ class BlogPost extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['author_id', 'title', 'body'];
+
+    public function author() {
+        return $this->belongsTo('App\User');
+    }
 }
