@@ -24,8 +24,7 @@
             <div class="card-body">
               <p class="card-text">{{ substr($post->body, 0, 300) }}</p>
               <hr />
-              <a href="/blog/author/posts/{{$post->author_id}}">
-                
+              <a href="/blog/author/{{$post->author_id}}/posts">
                 Author: {{ $post->author['name'] }}
               </a>
               @if ( $post->created_at == $post->updated_at )

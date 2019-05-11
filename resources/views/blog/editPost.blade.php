@@ -10,7 +10,7 @@
         <h3 class="card-header">Editing '{{ $post->title }}'</h3>
         <div class="card-block  card-padded">
           <form method="POST" action="/blog/{{$post->id}}" }}>
-            @method('PUT')
+            @method('PATCH')
             @csrf
             <div class="form-group">
               <label for="inputPostTitle">Title</label>

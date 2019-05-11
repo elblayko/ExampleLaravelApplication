@@ -77,11 +77,8 @@ class BlogPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(BlogPost $post)
     {
-        // Retrieve the resource.
-        $post = BlogPost::with(['author'])->find($id);
-
         // Show the view.
         return view('blog.viewSinglePost')->with('post', $post);
     }
@@ -92,15 +89,12 @@ class BlogPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BlogPost $post)
     {
         // Verify that the user is authenticated.
         if ( ! Auth::check() ) {
             abort(401);
         }
-
-        // Retrieve the resource.
-        $post = BlogPost::findOrFail($id);
 
         // Show the view.
         return view('blog.editPost')->with('post', $post);
@@ -113,7 +107,7 @@ class BlogPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogPost $post, Request $request)
     {
         // Verify that the user is authenticated.
         if ( ! Auth::check() ) {
@@ -126,12 +120,8 @@ class BlogPostsController extends Controller
             'body' => 'required'
         ]);
 
-        // Find the resource.
-        $post = BlogPost::findOrFail($id);
-
         // Update the resource.
         $post->update([
-            'author_id' => 1,
             'title'     => $request->input('title'),
             'body'      => $request->input('body')
         ]);
@@ -146,15 +136,15 @@ class BlogPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BlogPost $post)
     {
         // Verify that the user is authenticated.
         if ( ! Auth::check() ) {
             abort(401);
         }
 
-        // Retrieve the resource and delete it.
-        BlogPost::findOrFail($id)->delete();
+        // Delete the resource.
+        $post->delete();
 
         // Redirect the view.
         return redirect('/blog');
@@ -187,11 +177,10 @@ class BlogPostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function viewPostsByAuthorId($id) {
+    public function viewPostsByAuthorId(User $user) {
 
-        // Find the resource.
-        $posts = BlogPost::with(['author'])
-            ->where('author_id', $id)
+        // Find the posts.
+        $posts = BlogPost::where('author_id', $user->id)
             ->paginate(10);
 
         // Show the view.
